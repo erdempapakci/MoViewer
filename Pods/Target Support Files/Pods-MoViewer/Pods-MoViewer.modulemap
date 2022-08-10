@@ -1,0 +1,6 @@
+framework module Pods_MoViewer {
+  umbrella header "Pods-MoViewer-umbrella.h"
+
+  export *
+  module * { export * }
+}
