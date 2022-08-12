@@ -36,6 +36,8 @@
     let voteAverage : Double?
     let releaseDate : String
 }
+ ```
+  ```javascript
  struct Results: Codable {
     
     let results: [Movie]
@@ -45,107 +47,87 @@
 }
 ```
 
- ## Top rated movies view controller
+ ## Popular movies view controller
  
- ![Top rated Movies](https://user-images.githubusercontent.com/73407945/184412571-255a7261-b20e-42b6-b8c5-fee1e86ca99b.gif)
+
  ```javascript
-class TopRatedVC: UIViewController {
-    @IBOutlet private weak var collectionView : UICollectionView!
-    
-    private var movies : [Movie]?
+private var movies : [Movie]?
+    var moviTitle : String?
+    var movier : Movie? = nil
     private var page: Int = 1
     private var totalPages: Int = 0
     
+    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
-        fetch()
         let width = (view.frame.size.width - 20 ) / 3
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: width, height: 190)
+        fetch()
     }
     
     private func fetch(_ page: Int = 1) {
-        API.fetchMovies("top_rated", page:page) { data in
+        API.fetchMovies("popular", page: page) { data in
             self.totalPages = data.totalPages
             self.movies = data.results
             self.collectionView.reloadData()
-            self.title = "TOP RATED MOVIES"
+            
+            self.title = "POPULAR MOVIES"
+            
         }
-        
+    
     }
     
     private func loadMoreData() {
         if page < totalPages {
             page += 1
             OperationQueue.main.addOperation {
-                API.fetchMovies("top_rated", page:self.page) { data in
+                API.fetchMovies("popular", page: self.page) { data in
                     self.movies? += data.results
                     self.collectionView.reloadData()
                 }
             }
         }
     }
- 
 ```
                             
  ## Extensions
                             
   ```javascript                         
- extension TopRatedVC : UICollectionViewDataSource, UICollectionViewDelegate {
+extension PopularMoviesVC : UICollectionViewDataSource, UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return movies?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopRated", for: indexPath) as! MovieCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! MovieCollectionViewCell
         cell.movie = movies?[indexPath.item]
+        
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let count = movies?.count else {fatalError()}
         if indexPath.item == count - 1 {
             self.loadMoreData()
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
-    }
-    
-}
-   ```  
- ## Collection view cell
-  ```javascript
- import Kingfisher
-  ```
- 
- 
- ```javascript 
- class MovieCollectionViewCell: UICollectionViewCell {
-    
-   @IBOutlet private weak var movieImage:UIImageView!
-    
-    var movie: Movie? {
         
-        didSet{
-            backgroundView?.backgroundColor = .black
-            if let movie = movie {
-                movieImage.kf.setImage(with: "\(movie.posterPath )".url)
-                
-            }
+        guard let movie = movies?[indexPath.row] else {return}
+        
+        self.movier = movie
+        performSegue(withIdentifier: "ToDetails", sender: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ToDetails" {
+            let destinationVC = segue.destination as! DetailsVC
+            destinationVC.movie = movier
+            
         }
-        
-    }
-    
-}
-
-extension String{
-    var url: URL? {
-        
-        let posterURL = "https://image.tmdb.org/t/p/original"
-        
-        return URL(string: "\(posterURL)\(self)")
     }
     
 }
@@ -154,7 +136,9 @@ extension String{
 ## Details view controller
  
 
-![Details ](https://user-images.githubusercontent.com/73407945/184415274-6eef0daf-db88-4b81-a344-aee397fd48ef.gif)
+<img src="https://user-images.githubusercontent.com/73407945/184419693-0a4bdba5-8bb8-45da-882f-f03653246d08.gif" width="200" height="400" />
+
+
  ```javascript
  import Alamofire
  import MBCircularProgressBar
@@ -183,6 +167,36 @@ extension String{
     }
 
   ```
+ ## Collection view cell
+ ```javascript 
+ import Kingfisher 
+ ```
+ ```javascript 
+  var movie: Movie? {
+        
+        didSet{
+            backgroundView?.backgroundColor = .black
+            if let movie = movie {
+                movieImage.kf.setImage(with: "\(movie.posterPath )".url)
+                
+            }
+        }
+        
+    }
+    
+}
+
+extension String{
+    var url: URL? {
+        
+        let posterURL = "https://image.tmdb.org/t/p/original"
+        
+        return URL(string: "\(posterURL)\(self)")
+    }
+    
+}
+ ```
+ 
  
  ## Networking 
  ```javascript 
