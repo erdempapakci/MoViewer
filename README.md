@@ -5,7 +5,7 @@
 
  The Movie Database (TMDb) iOS App in Swift - https://developers.themoviedb.org/3/getting-started/introduction
  
-<img src="/Assets/Screenshot.png" width="250"/>
+<img src="/MoViewer/Screenshot.png" width="250"/>
  
 ## Technical specs
  - Language: Swift
