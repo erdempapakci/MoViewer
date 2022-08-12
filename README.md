@@ -5,7 +5,7 @@
 
  The Movie Database (TMDb) iOS App in Swift - https://developers.themoviedb.org/3/getting-started/introduction
  
- ![](Top_rated_Movies.gif)
+<img src="/Assets/Screenshot.png" width="250"/>
  
 ## Technical specs
  - Language: Swift
