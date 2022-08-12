@@ -6,6 +6,7 @@ target 'MoViewer' do
   use_frameworks!
   pod 'Alamofire'
  pod 'Kingfisher', '~> 7.0'
+ pod "MBCircularProgressBar"
   # Pods for MoViewer
 
 end

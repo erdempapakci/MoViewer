@@ -1,20 +1,24 @@
 PODS:
   - Alamofire (5.6.2)
   - Kingfisher (7.3.1)
+  - MBCircularProgressBar (0.3.5)
 
 DEPENDENCIES:
   - Alamofire
   - Kingfisher (~> 7.0)
+  - MBCircularProgressBar
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Kingfisher
+    - MBCircularProgressBar
 
 SPEC CHECKSUMS:
   Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
   Kingfisher: f411ab4902e733fc0c40522920fb5a236d7a7334
+  MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
 
-PODFILE CHECKSUM: 9d7b1c585edc444211a5055e674121773fe17a16
+PODFILE CHECKSUM: 1ebe07ecf4c23f9e2d709df384ef12c20f38da86
 
 COCOAPODS: 1.11.3
