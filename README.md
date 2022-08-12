@@ -4,7 +4,8 @@
  <img src="https://img.shields.io/badge/status-Active-green" height="20"> <img src="https://img.shields.io/badge/architecture-MVVM-yellow" height="20"> <img src="https://img.shields.io/badge/language-Swift-yellow" height="20"> 
 
  The Movie Database (TMDb) iOS App in Swift - https://developers.themoviedb.org/3/getting-started/introduction
- ![](Top rated Movies.gif)
+ 
+ ![](Top_rated_Movies.gif)
  
 ## Technical specs
  - Language: Swift
